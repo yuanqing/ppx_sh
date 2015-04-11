@@ -23,12 +23,8 @@ let exec (args:string list) : (int * string list) =
   let temp_file = Filename.temp_file temp_file_prefix "" in
   (* Execute the command, piping its output to `temp_file`. *)
   let exit_code = Sys.command (args ^ " > " ^ temp_file) in
-  (* Read the output from `temp_file` only if `exit_code` is 0. *)
-  let output =
-    if exit_code = 0 then
-      read_file temp_file
-    else
-      [] in
+  (* Read the output from `temp_file`. *)
+  let output = read_file temp_file in
   (* Delete `temp_file`. *)
   let _ = Sys.remove temp_file in
   (exit_code, output)
