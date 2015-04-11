@@ -4,7 +4,7 @@
 
 ## Example
 
-`ppx_sh` transpiles the following:
+`ppx_sh` converts the following:
 
 ```ocaml
 let str = "foo" in
