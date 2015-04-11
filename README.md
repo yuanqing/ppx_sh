@@ -1,4 +1,4 @@
-# ppx_sh [![Version](https://img.shields.io/badge/version-v0.0.0-orange.svg?style=flat)](https://github.com/yuanqing/ppx_sh/releases) [![Build Status](https://img.shields.io/travis/yuanqing/ppx_sh.svg?branch=master&style=flat)](https://travis-ci.org/yuanqing/ppx_sh)
+# ppx_sh [![Version](https://img.shields.io/badge/version-v0.1.0-orange.svg?style=flat)](https://github.com/yuanqing/ppx_sh/releases) [![Build Status](https://img.shields.io/travis/yuanqing/ppx_sh.svg?branch=master&style=flat)](https://travis-ci.org/yuanqing/ppx_sh)
 
 > A toy OCaml [syntax extension](http://caml.inria.fr/cgi-bin/viewvc.cgi/ocaml/trunk/experimental/frisch/extension_points.txt?view=log) for invoking shell commands.
 
