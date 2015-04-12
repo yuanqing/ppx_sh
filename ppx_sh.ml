@@ -33,36 +33,40 @@ let create_apply_exp (args:Parsetree.expression) (loc:Ast_helper.loc) :
   }) in
   Exp.apply ~loc expr [("", args)]
 
-let sh_expr mapper expr =
-  begin match expr with
-    | {
-        pexp_desc = Pexp_extension(
-          { txt = "sh"; loc },
-          PStr[{ pstr_desc = Pstr_eval({ pexp_desc = expr }, _) }]
-        )
-      } ->
-      begin match expr with
-        | Pexp_constant const ->
-          let const = Exp.constant ~loc const in
-          let args = create_list_exp [const] loc in
-          create_apply_exp args loc
-        | Pexp_ident ident ->
-          let ident = Exp.ident ~loc ident in
-          let args = create_list_exp [ident] loc in
-          create_apply_exp args loc
-        | Pexp_apply (expr, args) ->
-          let _, args = List.split args in
-          let args = expr::args in
-          let args = create_list_exp args loc in
-          create_apply_exp args loc
+let expr (mapper:Ast_mapper.mapper) (expr:Parsetree.expression) =
+  begin match expr.pexp_desc with
+    | Pexp_extension(
+        { txt = "sh"; loc },
+        payload
+      ) ->
+      begin match payload with
+        | PStr [
+            { pstr_desc = Pstr_eval({ pexp_desc = expr }, _) }
+          ] ->
+          begin match expr with
+            | Pexp_constant const ->
+              let const = Exp.constant ~loc const in
+              let args = create_list_exp [const] loc in
+              create_apply_exp args loc
+            | Pexp_ident ident ->
+              let ident = Exp.ident ~loc ident in
+              let args = create_list_exp [ident] loc in
+              create_apply_exp args loc
+            | Pexp_apply (expr, args) ->
+              let _, args = List.split args in
+              let args = expr::args in
+              let args = create_list_exp args loc in
+              create_apply_exp args loc
+            | _ ->
+              raise (Location.Error (Location.error ~loc "Invalid argument."))
+          end
         | _ ->
           raise (Location.Error (Location.error ~loc "Need an expression."))
       end
-    | x -> default_mapper.expr mapper x
+    | _ ->
+      default_mapper.expr mapper expr
   end
 
-let sh_mapper argv = {
-  default_mapper with expr = sh_expr
-}
-
-let () = register "sh" sh_mapper
+let () = register "ppx_sh" (fun _ ->
+  { default_mapper with expr }
+)
