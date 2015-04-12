@@ -18,9 +18,9 @@ let str = "foo" in
 let exit_code, output = Sh.exec ["echo"; str]
 ```
 
-`Sh.exec` returns a tuple of type `int * string list`:
+The `Sh.exec` function returns a `tuple` of type `int * string list`:
 - `int` is the exit code of the shell command.
-- `string list` is the lines of output of the shell command.
+- `string list` are the lines of output of the shell command.
 
 Our example is analogous to:
 
@@ -30,9 +30,9 @@ $ echo foo
 
 ## Usage
 
-(Note that OCaml >= 4.02 is required.)
+OCaml >= 4.02 is required.
 
-To compile a file `foo.ml` into `foo.out`, passing the source of `foo.ml` through the `ppx_sh` preprocessor, simply do:
+To compile a file `foo.ml` into `foo.out`, passing `foo.ml` through the `ppx_sh` preprocessor, simply do:
 
 ```
 $ make foo.out
