@@ -1,6 +1,8 @@
 # ppx_sh [![Version](https://img.shields.io/badge/version-v0.1.0-orange.svg?style=flat)](https://github.com/yuanqing/ppx_sh/releases) [![Build Status](https://img.shields.io/travis/yuanqing/ppx_sh.svg?branch=master&style=flat)](https://travis-ci.org/yuanqing/ppx_sh)
 
-> A toy OCaml [syntax extension](http://caml.inria.fr/cgi-bin/viewvc.cgi/ocaml/trunk/experimental/frisch/extension_points.txt?view=log) for invoking shell commands.
+> An OCaml [syntax extension](http://caml.inria.fr/cgi-bin/viewvc.cgi/ocaml/trunk/experimental/frisch/extension_points.txt?view=log) for invoking shell commands.
+
+*Requires OCaml >= 4.02.*
 
 ## Example
 
@@ -18,7 +20,7 @@ let str = "foo" in
 let exit_code, output = Sh.exec ["echo"; str]
 ```
 
-The `Sh.exec` function returns a `tuple` of type `int * string list`:
+The `Sh.exec` function returns a tuple of type `int * string list`.
 - `int` is the exit code of the shell command.
 - `string list` are the lines of output of the shell command.
 
@@ -29,8 +31,6 @@ $ echo foo
 ```
 
 ## Usage
-
-OCaml >= 4.02 is required.
 
 To compile a file `foo.ml` into `foo.out`, passing `foo.ml` through the `ppx_sh` preprocessor, simply do:
 
